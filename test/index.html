@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+  <style>
+    .tab {
+      display: inline-block;
+      width: 80px;
+      height: 20px;
+      line-height: 20px;
+      border: 1px solid black;
+      text-align: center;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .tab:hover {
+      background: yellow;
+    }
+
+    .content {
+      border-top: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+  </div>
+  <script type="text/x-template" id="app-tmpl">
+    <div>
+      <div>
+        <tab v-for="id in tabs" :label="id" :key="id"></tab>
+        <button>+</button>
+      </div>
+      <div class="content">
+        <switch-alive>
+          <component :is="'comp-' + curr"></component>
+        </switch-alive>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="tab">
+    <div class="tab">
+      <span>Tab {{label}}</span>
+      <button>x</button>
+    </div>
+  </script>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../src/index.js"></script>
+  <script>
+    Vue.use(VueAlive)
+
+    new Array(100).fill(0).forEach((z, idx) => {
+      Vue.component(`comp-${idx + 1}`, {
+        template: `<div>comp-${idx + 1}</div>`
+      })
+    })
+    const Tab = {
+      name: 'Tab',
+      props: ['label'],
+      template: '#tab'
+    }
+    new Vue({
+      el: '#app',
+      components: {
+        Tab
+      },
+      data: {
+        tabs: ['1', '2', '3'],
+        curr: 1,
+      },
+      template: '#app-tmpl'
+    })
+  </script>
+</body>
+</html>

@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/jkzing/vue-alive/issues"
   },
-  "homepage": "https://github.com/jkzing/vue-alive#readme"
+  "homepage": "https://github.com/jkzing/vue-alive#readme",
+  "devDependencies": {
+    "vue": "^2.4.4"
+  }
 }
